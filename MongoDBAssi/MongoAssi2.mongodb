@@ -1,0 +1,107 @@
+ASSINGMENT 2
+    use("population")
+    db.zipcodes.find().pretty()
+
+// ATLANTA POPULATION
+
+// 1.	Find Document with City “ATLANATA” and State “GA”
+    use("population")
+    db.zipcodes.find({"city":"ATLANTA","state":"GA"}).pretty()
+
+// 2.	Find Document with City “ATLANATA” and State “GA” (using Aggregate $match)
+    use("population")
+    db.zipcodes.aggregate([{$match:{ "city":"ATLANTA","state":"GA"}}]).pretty()
+
+
+// 3.	Count The number of Zipcodes in “ATLANATA” using $group
+    use("population")
+    db.zipcodes.aggregate( [      
+    { 	
+    $group: 
+    {_id: {"city": "ATLANTA"}, 
+    zip: {$sum: 1}}},      
+    {$group: {_id: "$_id.city", zcount: {$sum: "$zip"}}},      
+    {$sort: {zcount: -1} 
+    }  
+    ] )
+
+// 4.	Calculate total Population of “ATLANATA”
+    use("population")
+    db.zipcodes.aggregate( [    
+    {$group: {_id:{city: "ATLANTA"},
+    pop:{$sum: "$pop"}}
+    } 
+    ] )
+
+
+// POPULATION BY STATE
+
+// 1.	Use aggregate to calculate total population of each state
+    use("population")
+    db.zipcodes.aggregate( [    
+    {$group: {_id: "$state", totalPop: {$sum: "$pop"}}} 
+    ] )
+
+// 2.	Sort the Result by Population Highest First
+    use("population")
+    db.zipcodes.aggregate( [    
+    {$group: {_id: "$state", totalPop: {$sum: "$pop"}}},
+    {$sort: {"totalPop": -1}}
+    ])
+
+// 3.	Limit the Result to just the First 3 result (Which are the Top 3 Cities in Population)
+    use("population")
+    db.zipcodes.aggregate( [    
+    {$group: {_id: "$state", totalPop: {$sum: "$pop"}}},
+    {$sort: {"totalPop": -1}},
+    {$limit:3}
+    ])
+
+
+// POPULATION BY CITY
+
+
+// 1.	Calculate the total Population of Each City
+    use("population")
+    db.zipcodes.aggregate( [{ 
+    $group: {_id: "$city", totalPop: {$sum: "$pop"}} 
+    }
+    ] )
+
+// 2.	Sort the Result with Descending Order (Highest First)
+    use("population")
+    db.zipcodes.aggregate([{
+    $group: {_id:"$city", totalPop:{$sum: "$pop"}}},
+    {$sort: {"totalPop": -1}}
+    ])
+
+// 3.	Limit the Result with top 3 Cities with high Population
+    use("population")
+    db.zipcodes.aggregate( [    
+    { 
+    $group: { _id: "$city", totalPop: { $sum: "$pop" } } },
+    {$sort:{"totalPop":-1}},
+    {$limit:3}
+    ])
+
+// 4.	Find the Top 3 Cities in population in TEXAS(State)
+    use("population")
+    db.zipcodes.aggregate({$match:{state:"TX"}},
+    {$group:{_id:{city:'$city',state:'$state'},
+    population: {$sum:'$pop'}}},
+    {$sort:{population:-1}},
+    {$limit:3})
+
+
+// BONUS
+
+// 1.	Write a Query to find Average City Population of Each State
+    use("population")
+    db.zipcodes.aggregate({$group:{_id:"$city",avgPop:{$avg:"$pop"}}})
+
+// 2.	What are the top 3 States in term City Population
+    use("population")
+    db.zipcodes.aggregate({$group:{_id:{city:"$city",state:"$state"},
+    avgPop:{$avg:"$pop"}}},
+    {$sort:{avgPop:-1}},
+    {$limit:3})
