@@ -1,5 +1,6 @@
 MongoDB ASSIGNMENT 3
 
+
 // 1.	Display all the documents in the collection restaurants.
     use ("restaurants")
     db.addresses.find().pretty()

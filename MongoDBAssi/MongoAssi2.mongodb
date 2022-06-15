@@ -1,4 +1,5 @@
 ASSINGMENT 2
+
     use("population")
     db.zipcodes.find().pretty()
 

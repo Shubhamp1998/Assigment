@@ -2,7 +2,6 @@ package Assigment.CoreJavaAssi;
 
 public class StringMethod {
     public static void main(String[] args) {
-
         String str = "Java string pool to collection of string which is stored in heap memory";
 
         String str1 = str.toLowerCase();

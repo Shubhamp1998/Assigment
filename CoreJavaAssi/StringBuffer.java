@@ -4,7 +4,6 @@ public class StringBuffer {
 
     public StringBuffer(String string) {
     }
-
     public static void main(String[] args) {
         StringBuffer str = new StringBuffer("String Buffer");
 

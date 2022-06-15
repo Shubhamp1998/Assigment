@@ -8,6 +8,5 @@ public class JoinString {
         System.out.println("Original String :" + str);
         String str1 = str.concat(" How Are You");
         System.out.println("Updated String :" + str1);
-
     }
 }

@@ -3,7 +3,6 @@ package Assigment.CoreJavaAssi;
 public class StringBuilder {
     public StringBuilder(String string) {
     }
-
     public static void main(String[] args) {
 
         System.out.println("{ Question 1 }");
