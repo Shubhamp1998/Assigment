@@ -7,7 +7,8 @@
 	db.CreateCollections("movies")
 
 // INSERT DOCUMENT TO MOVIES
-	db.movies.insertMany([
+	use mongo_practice
+    db.movies.insertMany([
     { 
     "title":"Fight Club", 
     "writer":"Chuck Palahniuko", 
@@ -53,24 +54,29 @@
     db.movies.find().pretty()
 
 // 2.	Get All Doc With Writer ‘Quentin Tarantino’
+    use mongo_practice
     db.movies.find({writer: "Quentin Tarantino"})
 
 // 3.	Get All Doc which Actor Includes ‘Brad Pitt’
+    use mongo_practice
     db.movies.find({"actors": "Brad Pitt"})
 
 // 4.	Get All Doc with franchise set to ‘The Hobbit’
+    use mongo_practice
     db.movies.find({"franchise": "The Hobbit"})
 
 
 // 5.	Get All movies released in 90s
+    use mongo_practice
     db.movies.find({"year":{$gte:1988,$lt:2000}})
 
-
 // 6.	Get All movies released before the year 2000 and after year 2010
+    use mongo_practice
     db.movies.find({"year": {$lt:2000}, $or:{$gt:2010}}).pretty()
 
 // UPDATE DOCUMENT
 // 1.	Add Synopsis to "The Hobbit: An Unexpected Journey"
+    use mongo_practice
     db.movies.update({ title: 'The Hobbit: An Unexpected Journey' }, 
     { 
     $set: {"synopsis": "A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug." 
@@ -78,6 +84,7 @@
     })
 
 2.	Add Synopsis to "The Hobbit: The Desolation of Smaug"
+    use mongo_practice
     db.movies.update({"title": "The Hobbit: The Desolation of Smaug"},
     {
     $set:{"synopsis": "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."
@@ -86,7 +93,8 @@
 	
 // 3.	Add an actor named "Samuel L. Jackson" to the movie "Pulp Fiction"
 (Without deleting Earlier Array object New Object is added by Using $push Command)
-	db.movies.update({"title": "Pulp Fiction" },
+	use mongo_practice
+    db.movies.update({"title": "Pulp Fiction" },
     {
     $push: {"actors": "Samuel L. Jackson"} 
     });
@@ -94,74 +102,91 @@
 
 
 // TEXT SEARCH (To search a particular word we have to create index)
+    use mongo_practice
     db.movies.createIndex({"synopsis": "text"})
 
 // 1.	Find all movies which Synopsis content word “Bilbo”
+    use mongo_practice
     db.movies.find({$text:{$search: "Bilbo"}})
 
 // 2.	Find all movies which Synopsis content word “Gandalf”
+    use mongo_practice
     db.movies.find({$text:{$search: "Gandalf"}})
 
 // 3.	Find all movies which Synopsis content word "Bilbo" and not "Gandalf"
+    use mongo_practice
     db.movies.find({$text: {$search: "Bilbo -Gandalf"}})
 
 // 4.	find all movies that have a synopsis that contains the word "dwarves" or "hobbit" 
+    use mongo_practice
     db.movies.find({$text: {$search: "dwarves hobbit"}}) 
 
 // 5.	find all movies that have a synopsis that contains the word "gold" and "dragon" 
+    use mongo_practice
     db.movies.find({$text: {$search: "gold dragon"}})
 
 
 // DELETE DOCUMENT
 // 1.	Delete the Movie "Pee Wee Harman’s Big Adventure"
+    use mongo_practice
     db.movies.remove({"title": "Pee Wee Harman’s Big Adventure"})
 
 // 2.	Delete The Movie “Avatar”
+    use mongo_practice
     db.movies.remove({"title": "Avatar"})
 
 // RELATIONSHIP
 // 1.	Create Collection Named “users”
-    db.createCollection(‘users’)
+    use mongo_practice
+    db.createCollection('users')
 
 // Insert Documents
 
 // 2.	Create Collection Named “posts”
-
+    use mongo_practice
     db.createCollection(‘posts)
 
 // Insert Documents
 
 
 // 3.	Create Collection Named “comments”
-
+    use mongo_practice
     db.createCollection(‘comments)
 
 // Insert Documents
 
 // QUERYING RELATED TO COLLECTIONS
 // 1.	Find All Users
+    use mongo_practice
     db.users.find().pretty()
 
 // 2.	Find All Posts
+    use mongo_practice
     db.posts.find().pretty()
 
 // 3.	Find All Post that was Authored by "GoodGuyGreg"
+    use mongo_practice
     db.posts.find({"username": "GoodGuyGreg"}).pretty()
 
 // 4.	Find All Post that was Authored by "ScumbagSteve"
-    db.posts.find({“username”: "ScumbagSteve"}).pretty()
+    use mongo_practice
+    db.posts.find({"username": "ScumbagSteve"}).pretty()
 
 // 5.	Find All Comments
+    use mongo_practice
     db.comments.find().pretty()
 
 // 6.	Find All Comments that was Authored by "GoodGuyGreg"
+    use mongo_practice
     db.comments.find({"username": "GoodGuyGreg"}).pretty()
 
 // 7.	Find All Comments that was Authored by "ScumbagSteve"
+    use mongo_practice
     db.comments.find({"username": "ScumbagSteve"}).pretty()
 
 // 8.	Find All Comments Belonging to the Post “Reports a bug in your code”
-	db.posts.aggregate([{ $match: { title: 'Reports a bug in your code' } },
+	use mongo_practice
+    db.posts.aggregate([{ $match: { title: 'Reports a bug in your code' } },
     {
     $lookup: { from: 'comments', 
     localField: '_id', 

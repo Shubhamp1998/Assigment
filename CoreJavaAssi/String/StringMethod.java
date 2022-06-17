@@ -1,4 +1,4 @@
-package Assigment.CoreJavaAssi;
+package Assigment.CoreJavaAssi.String;
 
 public class StringMethod {
     public static void main(String[] args) {
