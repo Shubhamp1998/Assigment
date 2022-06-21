@@ -10,7 +10,7 @@ public class ArithmeticException1{
 		catch (ArithmeticException e) {
 			//e.printStackTrace();
 			System.out.println(e);
-			System.out.println("Arithmetic Exception Handled");
+			System.out.println("Arithmetic Exception is Handled");
 			
 		}
 	}

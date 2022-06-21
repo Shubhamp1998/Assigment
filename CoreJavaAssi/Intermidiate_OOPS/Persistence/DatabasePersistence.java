@@ -4,11 +4,12 @@ public class DatabasePersistence extends Persistence{
 
 	@Override
 	void persist() {
-		System.out.println("Data saved in database");
+		System.out.println("DATA SAVED IN DATABASE");
 	}
 	
 	public static void main(String[] args) {
-		Persistence p1= new DatabasePersistence(); //upcasting 
+		//upcasting 
+		Persistence p1= new DatabasePersistence(); 
 		p1.persist();
 	}
 	

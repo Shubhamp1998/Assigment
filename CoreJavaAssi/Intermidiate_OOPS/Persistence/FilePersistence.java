@@ -7,8 +7,9 @@ public class FilePersistence extends Persistence{
 	System.out.println("Data is saved in file");	
 	}
 
-	public static void main(String[] args) {		
-		Persistence p1= new FilePersistence(); //upcasting 
+	public static void main(String[] args) {	
+		//upcasting 	
+		Persistence p1= new FilePersistence(); 
 		p1.persist();
 	}
 }
