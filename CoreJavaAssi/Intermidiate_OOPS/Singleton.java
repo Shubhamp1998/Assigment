@@ -3,7 +3,7 @@ package Assigment.CoreJavaAssi.Intermidiate_OOPS;
 public class Singleton {
 
     private Singleton() {
-        System.out.println("single ton constructor");
+        System.out.println("Singleton Constructor");
     }
 
     class Driver extends Singleton {
