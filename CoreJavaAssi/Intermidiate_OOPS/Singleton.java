@@ -6,7 +6,7 @@ public class Singleton {
         System.out.println("Singleton Constructor");
     }
 
-    class Driver extends Singleton {
+    static class Driver extends Singleton {
         public static void main(String[] args) {
 
         }
